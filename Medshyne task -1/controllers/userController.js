@@ -319,6 +319,523 @@ async function getStudentDetails(req, res) {
     }
 }
 
+async function ClassDetails (req,res) {
+    const  {Classes,Division,Department,Strength,HCR,Incharge,Last_Update} = req.body
+       
+        const pool=db.pool
+        try{
+            const query = `INSERT INTO classes (Classes,Division,Department,Strength,HCR,Incharge,Last_Update) VALUES(?,?,?,?,?,?,?)`;
+        const values = [Classes,Division,Department,Strength,HCR,Incharge,Last_Update
+        ];
+
+        const [result]=await pool.query(query,values);
+
+        console.log(result[0]);
+
+
+        res.status(201).send("data stored successful")
+        }
+    catch(err){
+        console.error(err)
+        res.send("internal error")
+
+        }
+}
+
+async function Department (req,res) {
+    const  {Department_Name,Created_Date,Edit,updated_by} = req.body
+       
+        const pool=db.pool
+        try{
+            const query = `INSERT INTO department (Department_Name,Created_Date,Edit,updated_by) VALUES(?,?,?,?)`;
+        const values = [Department_Name,Created_Date,Edit,updated_by
+        ];
+
+        const [result]=await pool.query(query,values);
+
+        console.log(result[0]);
+
+
+        res.status(201).send("data stored successful")
+        }
+    catch(err){
+        console.error(err)
+        res.send("internal error")
+
+        }
+}
+
+
+async function Designation (req,res) {
+    const  {Designation,Department,Edit,Updated_by} = req.body
+       
+        const pool=db.pool
+        try{
+            const query = `INSERT INTO designation (Designation,Department,Edit,Updated_by) VALUES(?,?,?,?)`;
+        const values = [Designation,Department,Edit,Updated_by
+        ];
+
+        const [result]=await pool.query(query,values);
+
+        console.log(result[0]);
+
+
+        res.status(201).send("data stored successful")
+        }
+    catch(err){
+        console.error(err)
+        res.send("internal error")
+
+        }
+}
+
+async function medicine (req,res) {
+    const  {Medicine_name,HCN_Code,STock_Status,Quantity,Expiry_date,Updated_by} = req.body
+       
+        const pool=db.pool
+        try{
+            const query = `INSERT INTO medicine_inventory (Medicine_name,HCN_Code,STock_Status,Quantity,Expiry_date,Updated_by) VALUES(?,?,?,?,?,?)`;
+        const values = [Medicine_name,HCN_Code,STock_Status,Quantity,Expiry_date,Updated_by
+        ];
+
+        const [result]=await pool.query(query,values);
+
+        console.log(result[0]);
+
+
+        res.status(201).send("data stored successful")
+        }
+    catch(err){
+        console.error(err)
+        res.send("internal error")
+
+        }
+}
+
+
+async function medicine_used (req,res) {
+    const  {Name,ID_Number,Consulting_ID,HCR_Name,Updated_by} = req.body
+       
+        const pool=db.pool
+        try{
+            const query = `INSERT INTO medicine_used (Name,ID_Number,Consulting_ID,HCR_Name,Updated_by) VALUES(?,?,?,?,?)`;
+        const values = [Name,ID_Number,Consulting_ID,HCR_Name,Updated_by
+        ];
+
+        const [result]=await pool.query(query,values);
+
+        console.log(result[0]);
+
+
+        res.status(201).send("data stored successful")
+        }
+    catch(err){
+        console.error(err)
+        res.send("internal error")
+
+        }
+}
+
+
+async function Consulting_history (req,res) {
+    const  {Name,Sick_type ,Consulting_id,Division,Date,Updated_by} = req.body
+       
+        const pool=db.pool
+        try{
+            const query = `INSERT INTO consulting_history (Name,Sick_type,Consulting_id,Division,Date,Updated_by) VALUES(?,?,?,?,?,?)`;
+        const values = [Name,Sick_type ,Consulting_id,Division,Date,Updated_by
+        ];
+
+        const [result]=await pool.query(query,values);
+
+        console.log(result[0]);
+
+
+        res.status(201).send("data stored successful")
+        }
+    catch(err){
+        console.error(err)
+        res.send("internal error")
+
+        }
+}
+
+async function Consulting_register(req,res) {
+    const {Name,Sicktype,Consulting_ID,Division,Date,Updated_by} = req.body
+
+    const pool = db.pool
+    try{
+        const query = `INSERT INTO Consulting_register (Name,Sicktype,Consulting_ID,Division,Date,Updated_by) VALUES(?,?,?,?,?,?)` ;
+        const values = [Name,Sicktype,Consulting_ID,Division,Date,Updated_by
+
+        ];
+        const [result] = await pool.query (query,values);
+
+        console.log(result[0]);
+
+        res.status(201).send("Data Stored Successfull")
+    }
+    catch(err){
+        console.error(err)
+        res.send("Internal Error")
+
+    }
+    
+}
+function formatDate(dateStr) {
+    const [day, month, year] = dateStr.split('-');
+    return `${year}-${month}-${day}`;
+}
+
+async function home_dashboard(req,res) {
+    const{status,Consulting_id,Patient_Name,HCR,Sick_type,Assignee,Date,Updated_by} = req.body
+
+    const pool = db.pool
+    try{
+        const formattedDate = formatDate(Date);
+        const query = `INSERT INTO home_dashboard (status,Consulting_id,Patient_Name,HCR,Sick_type,Assignee,Date,Updated_by) VALUES(?,?,?,?,?,?,?,?)` ;
+        const values = [status,Consulting_id,Patient_Name,HCR,Sick_type,Assignee,Date,Updated_by
+
+        ];
+
+        const[result] = await pool.query (query,values);
+
+        console.log (result[0]);
+
+        res.status(201).send ("Data Stored Successfully")
+    }
+    catch(err){
+        console.error(err)
+        res.send("Internal Error")
+    }
+    
+}
+
+async function plans (req,res) {
+    const {Transaction_id,Date,price,Subscription_plan,Status,Invoice,Updated_by} = req.body
+
+    const pool = db.pool
+
+    try{
+        const query = `INSERT INTO plan_subs (Transaction_id,Date,price,Subscription_plan,Status,Invoice,Updated_by) VALUES (?,?,?,?,?,?,?)` ;
+        const values = [Transaction_id,Date,price,Subscription_plan,Status,Invoice,Updated_by
+        ];
+
+        const [result] = await pool.query (query,values);
+
+        console.log(result[0]);
+
+        res.status(201).send ("Data Stored Sucessfully")
+        
+    }
+    catch(err)
+    {
+        console.error(err)
+        res.send("Internal Error")
+    }
+}
+
+async function Super_admin_med(req,res) {
+    const {Medicine_Name,HSN_Code,Stock_status,Quantity,Expiry_date,Updated_by} = req.body
+
+    const pool = db.pool
+
+
+    try {
+        const query = `INSERT INTO super_admin_medstocks (Medicine_Name,HSN_Code,Stock_status,Quantity,Expiry_date,Updated_by) VALUES(?,?,?,?,?,?)` ;
+        
+        const values = [Medicine_Name,HSN_Code,Stock_status,Quantity,Expiry_date,Updated_by
+
+        ];
+
+        const [result] = await pool.query (query,values);
+        console.log(result[0]);
+
+        res.status(201).send ("Data Stored Successfully")
+        
+
+
+    }catch (err) {
+        console.error(err)
+        res.send("Internal Error")
+    }
+    
+}
+
+async function Super_admin_ord(req,res) {
+    const {Order_ID,Date,Status,Name,RM,Order_details,Updated_by} = req.body;
+
+    const pool = db.pool
+
+    try {
+        const query = `INSERT INTO super_admin_orders (Order_ID,Date,Status,Name,RM,Order_details,Updated_by) VALUES (?,?,?,?,?,?,?)` ;
+
+        const values = [Order_ID,Date,Status,Name,RM,Order_details,Updated_by
+
+        ];
+
+        const [result] = await pool.query (query,values);
+        console.log(result[0]);
+
+        res.status(201).send ("Data stored successfully")
+
+        
+    } catch (err) {
+        console.error(err)
+        res.send("internal error")
+        
+    }
+    
+}
+
+async function Super_admin_trans(req,res) {
+    const {Invoice_id,Date,Status,Name,Cashier,Receiver,Invoice,Updated_by} = req.body;
+
+    const pool = db.pool
+
+    try {
+        const query = `INSERT INTO super_admin_transac (Invoice_id,Date,Status,Name,Cashier,Receiver,Invoice,Updated_by) VALUES (?,?,?,?,?,?,?,?)` ;
+
+        const values = [Invoice_id,Date,Status,Name,Cashier,Receiver,Invoice,Updated_by
+
+        ];
+
+        const [result] = await pool.query (query,values);
+        console.log(result[0]);
+
+        res.status(201).send ("Data stored successfully")
+
+        
+    } catch (err) {
+        console.error(err)
+        res.send("internal error")
+        
+    }
+    
+}
+
+async function Super_admin_employee(req, res) {
+    const { Department_name, Created_date, Edit, Delete, Updated_by } = req.body;
+
+    const pool = db.pool;
+
+    try {
+        const query = `INSERT INTO super_admin_employee_depart (Department_name, Created_date, \`Edit\`, \`Delete\`, Updated_by) VALUES (?, ?, ?, ?, ?)`;
+
+        const values = [Department_name, Created_date, Edit, Delete, Updated_by];
+
+        const [result] = await pool.query(query, values);
+        console.log(result[0]);
+
+        res.status(201).send("Data stored successfully");
+
+    } catch (err) {
+        console.error(err);
+        res.send("internal error");
+    }
+}
+
+async function Super_admin_employee_desig(req, res) {
+    const { Designation,Department_name, Created_date,Access_level,Updated_by } = req.body;
+
+    const pool = db.pool;
+
+    try {
+        const query = `INSERT INTO super_admin_employee_desig (Designation,Department_name, Created_date,Access_level,Updated_by) VALUES (?, ?, ?, ?, ?)`;
+
+        const values = [Designation,Department_name, Created_date,Access_level,Updated_by];
+
+        const [result] = await pool.query(query, values);
+        console.log(result[0]);
+
+        res.status(201).send("Data stored successfully");
+
+    } catch (err) {
+        console.error(err);
+        res.send("internal error");
+    }
+}
+
+async function Super_admin_employee_list(req, res) {
+    const { Employee_ID,Employee_name, Email,Phone_number,Date_added,Gender,Updated_by } = req.body;
+
+    const pool = db.pool;
+
+    try {
+        const query = `INSERT INTO super_admin_employee_list (Employee_ID,Employee_name, Email,Phone_number,Date_added,Gender,Updated_by) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+        const values = [Employee_ID,Employee_name, Email,Phone_number,Date_added,Gender,Updated_by];
+
+        const [result] = await pool.query(query, values);
+        console.log(result[0]);
+
+        res.status(201).send("Data stored successfully");
+
+    } catch (err) {
+        console.error(err);
+        res.send("internal error");
+    }
+}
+
+async function Super_admin_employee_details(req, res) {
+    const { Employee_Name,Email_Address, Address,Gender,Blood_group,Pincode,DOB,State,Updated_by } = req.body;
+
+    const pool = db.pool;
+
+    try {
+        const query = `INSERT INTO super_admin_employee_details (Employee_Name,Email_Address, Address,Gender,Blood_group,Pincode,DOB,State,Updated_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+        const values = [Employee_Name,Email_Address, Address,Gender,Blood_group,Pincode,DOB,State,Updated_by
+
+        ];
+
+        const [result] = await pool.query(query, values);
+        console.log(result[0]);
+
+        res.status(201).send("Data stored successfully");
+
+    } catch (err) {
+        console.error(err);
+        res.send("internal error");
+    }
+}
+
+async function Super_admin_work_details(req, res) {
+    const { Department,Designations, Mobile_Number,Qualifications,New_Password,Confirm_password,Updated_by } = req.body;
+
+    const pool = db.pool;
+
+    try {
+        const query = `INSERT INTO super_admin_work_details (Department,Designations, Mobile_Number,Qualifications,New_Password,Confirm_password,Updated_by) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+        const values = [Department,Designations, Mobile_Number,Qualifications,New_Password,Confirm_password,Updated_by
+
+        ];
+
+        const [result] = await pool.query(query, values);
+        console.log(result[0]);
+
+        res.status(201).send("Data stored successfully");
+
+    } catch (err) {
+        console.error(err);
+        res.send("internal error");
+    }
+}
+
+async function Super_admin_organization(req, res) {
+    const { Name,ID, Email,Phone_Number,Date_added,RM_Name,Updated_by} = req.body;
+
+    const pool = db.pool;
+
+    try {
+        const query = `INSERT INTO super_admin_organization_list (Name,ID, Email,Phone_Number,Date_added,RM_Name,Updated_by) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+        const values = [Name,ID, Email,Phone_Number,Date_added,RM_Name,Updated_by
+
+        ];
+
+        const [result] = await pool.query(query, values);
+        console.log(result[0]);
+
+        res.status(201).send("Data stored successfully");
+
+    } catch (err) {
+        console.error(err);
+        res.send("internal error");
+    }
+}
+
+
+async function Super_admin_organizaton_details(req, res) {
+    const {Organization_name,Organization_id,Organization_type,Regional_manager,Date_added,GST_Number,Mobile_Number,Organization_reg_number,Address,Name,Designation,Email_id,Updated_by} = req.body;
+
+    const pool = db.pool;
+
+    try {
+        const query = `INSERT INTO super_admin_organzation_details (Organization_name,Organization_id,Organization_type,Regional_manager,Date_added,GST_Number,Mobile_Number,Organization_reg_number,Address,Name,Designation,Email_id,Updated_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+        const values = [Organization_name,Organization_id,Organization_type,Regional_manager,Date_added,GST_Number,Mobile_Number,Organization_reg_number,Address,Name,Designation,Email_id,Updated_by
+
+        ];
+
+        const [result] = await pool.query(query, values);
+        console.log(result[0]);
+
+        res.status(201).send("Data stored successfully");
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("internal error");
+    }
+}
+
+async function Super_admin_Consultation_list(req,res) {
+    const {Patient_name,Status,Consultation_ID,HCR,Sick_Type,Assignee,Date,Updated_by} = req.body;
+
+    const pool = db.pool;
+
+    try{
+
+        
+        const query = `INSERT INTO super_admin_consultation_list(Patient_name,Status,Consultation_ID,HCR,Sick_Type,Assignee,Date,Updated_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+
+        const values = [Patient_name,Status,Consultation_ID,HCR,Sick_Type,Assignee,Date,Updated_by
+
+        ];
+        const [result] = await pool.query(query,values);
+
+        console.log(result[0]);
+
+        res.status(201).send("Data Stored Successfully");
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("internal error");
+        
+    }
+    
+}
+
+
+async function Super_admin_paid (req,res) {
+
+    const{Invoice_number,Purchase,Customer,Status,Date,Updated_by} = req.body;
+
+    const pool = db.pool;
+
+
+    try{
+
+        const [day, month, year] = Date.split('-');
+
+        const formattedDate = `${day}-${month}-${year}`;
+
+
+        const query = `INSERT INTO super_admin_paid(Invoice_number,Purchase,Customer,Status,Date,Updated_by) VALUES (?,?,?,?,?,?)`
+        
+        const values = [Invoice_number,Purchase,Customer,Status,formattedDate,Updated_by ];
+        
+        const [result] = await pool.query (query,values);
+        
+        console.log(result[0]);
+        
+        res.status(201).send("Data Stored");
+
+    } catch (err) {
+
+        console.error(err);
+
+        res.status(500).send("internal error");
+
+    }
+
+    }
+
+
+    
+
+
 
 
 
@@ -330,5 +847,27 @@ module.exports=
     studentdetails,
     staffdetails,
     getStaffDetails,
-    getStudentDetails
+    getStudentDetails,
+    ClassDetails,
+    Department,
+    Designation,
+    medicine,
+    medicine_used,
+    Consulting_history,
+    Consulting_register,
+    home_dashboard,
+    plans,
+    Super_admin_med,
+    Super_admin_ord,
+    Super_admin_trans,
+    Super_admin_employee,
+    Super_admin_employee_desig,
+    Super_admin_employee_list,
+    Super_admin_employee_details,
+    Super_admin_work_details,
+    Super_admin_organization,
+    Super_admin_organizaton_details,
+    Super_admin_Consultation_list,
+    Super_admin_paid
+    
 }
